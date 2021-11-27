@@ -1,5 +1,6 @@
 ﻿using Consul;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Snippet.Micro.Consul
 {
@@ -10,6 +11,12 @@ namespace Snippet.Micro.Consul
         private AgentServiceRegistration _registration;
 
         private readonly ConsulOption _consulOption;
+
+        public ConsulRegisterService(IConsulClient client, IOptions<ConsulOption> consulOptions)
+        {
+            _client = client;
+            _consulOption = consulOptions.Value;
+        }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {

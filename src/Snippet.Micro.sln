@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.InternalGatew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.Yarp", "Infrastructures\Snippet.Micro.Yarp\Snippet.Micro.Yarp.csproj", "{A3A14AC4-ACFC-4CD0-8B10-FC2BB3A50626}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.TestService", "Services\Snippet.Micro.TestService\Snippet.Micro.TestService.csproj", "{3A88E407-3729-4C04-9BEC-9611B2DB8846}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A3A14AC4-ACFC-4CD0-8B10-FC2BB3A50626}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3A14AC4-ACFC-4CD0-8B10-FC2BB3A50626}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3A14AC4-ACFC-4CD0-8B10-FC2BB3A50626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A88E407-3729-4C04-9BEC-9611B2DB8846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A88E407-3729-4C04-9BEC-9611B2DB8846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A88E407-3729-4C04-9BEC-9611B2DB8846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A88E407-3729-4C04-9BEC-9611B2DB8846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{D134F209-51A3-4545-A665-76B45AB83D47} = {4045B435-93A1-4CFC-A924-F685DD4C8198}
 		{80E5DCC0-2EF2-4ABC-AC7F-14F400840BA6} = {37987121-0510-45DF-8093-734A88B1873B}
 		{A3A14AC4-ACFC-4CD0-8B10-FC2BB3A50626} = {4045B435-93A1-4CFC-A924-F685DD4C8198}
+		{3A88E407-3729-4C04-9BEC-9611B2DB8846} = {C4FB72A5-E72A-4881-BA9A-8F1DA299DE00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {494A0F1F-11A6-4DBF-934E-0B2C6F0B3974}
