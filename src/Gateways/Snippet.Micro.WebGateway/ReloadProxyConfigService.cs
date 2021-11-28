@@ -27,7 +27,7 @@ namespace Snippet.Micro.WebGateway
             var clusters = new List<ClusterConfig>();
             var routes = new List<RouteConfig>();
 
-            foreach(var serviceName in serviceList)
+            foreach (var serviceName in serviceList)
             {
 
                 var destinations = new Dictionary<string, DestinationConfig>();

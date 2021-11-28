@@ -11,7 +11,7 @@
         public int ServicePort { get; set; }
         public string ServiceName { get; set; }
 
-        public string ConsulIp { get; set; }
-        public int ConsulPort { get; set; }
+        public string ConsulIp { get; set; } = "127.0.0.1";
+        public int ConsulPort { get; set; } = 8500;
     }
 }

@@ -1,0 +1,112 @@
+﻿@model Snippet.Micro.Identity.Models.LoginViewModel
+
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "登录页面";
+}
+<style>
+    .left {
+        width: 50%;
+        color: chocolate;
+        border: 0;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .leftContent {
+        width: 100%;
+        height: 100%;
+        padding-left: 1em;
+        color: white;
+    }
+
+    .right {
+        width: 49%;
+        border: 0;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .rightContent {
+        width: 100%;
+        height: 100%;
+        padding-left: 1em;
+    }
+
+    .card {
+        width: 70%;
+        height: 100%;
+        height: 600px;
+        display: inline-block;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    .thrid-login-bar {
+        text-align: center;
+    }
+
+    .thrid-login-link {
+        margin: 10px;
+    }
+
+    .thrid-login-img {
+        width: 32px;
+        height: 32px;
+        margin: 10px;
+    }
+</style>
+
+<div class="loginContainer d-flex justify-content-center align-items-center">
+    <div class="card">
+        <div class="left">
+            <div class="leftContent d-flex justify-content-center align-items-center bg-primary">
+                <h1>欢迎使用统一认证中心</h1>
+            </div>
+        </div>
+        <div class="right">
+            <div class="rightContent d-flex align-items-center">
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    @if (ViewContext.ModelState.IsValid == false)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>发生错误</strong>
+                            <div asp-validation-summary="All" class="danger"></div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label asp-for="Account">账号</label>
+                        <input asp-for="Account" type="text" class="form-control" placeholder="请输入账号" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">密码</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="请输入密码" autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                    <div class="thrid-login-bar">
+                        <a class="thrid-login-link"
+                           asp-controller="Authentication"
+                           asp-action="SignIn"
+                           asp-route-scheme="github"
+                           asp-route-returnUrl="@Model.ReturnUrl"><img class="thrid-login-img" src="../images/github.svg" /></a>
+                        <a class="thrid-login-link"
+                           asp-controller="Authentication"
+                           asp-action="SignIn"
+                           asp-route-scheme="weixin"
+                           asp-route-returnUrl="@Model.ReturnUrl"><img class="thrid-login-img" src="../images/wechat.svg" /></a>
+                        <a class="thrid-login-link"
+                           asp-controller="Authentication"
+                           asp-action="SignIn"
+                           asp-route-scheme="baidu"
+                           asp-route-returnUrl="@Model.ReturnUrl"><img class="thrid-login-img" src="../images/baidu.svg" /></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

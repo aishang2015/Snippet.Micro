@@ -1,0 +1,16 @@
+﻿@model Snippet.Micro.Identity.Models.LogoutViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "注销成功";
+}
+<style>
+    .returnContainer {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="returnContainer d-flex justify-content-center align-items-center">
+    <a href="@Model.PostLogoutRedirectUri">点击这里返回您的应用</a>
+</div>
