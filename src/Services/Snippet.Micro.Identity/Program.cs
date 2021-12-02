@@ -2,20 +2,18 @@ using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Snippet.Micro.Consul;
 using Snippet.Micro.Identity.Data;
-using System.Collections.Generic;
-using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
+builder.Services.AddConsulRegisterService();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -34,7 +32,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddIdentityServer(options =>
 {
-    options.UserInteraction.LoginUrl = "/Account/Login";
+    options.Events.RaiseErrorEvents = true;
+    options.Events.RaiseInformationEvents = true;
+    options.Events.RaiseFailureEvents = true;
+    options.Events.RaiseSuccessEvents = true;
 }).AddAspNetIdentity<AppUser>()
 .AddConfigurationStore(options =>
 {
@@ -82,23 +83,18 @@ using (var scope = app.Services.CreateScope())
 
     if (configurationDbContext.Database.EnsureCreated())
     {
-        var clients = new Client
+        // apiresource
+        var apiResource = new ApiResource("testapi", "TestService API Resource")
         {
-            ClientId = "snippet.micro.web",
-            ClientName = "react client of wiki application",
-            AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-            RequireClientSecret = false,
-            AccessTokenLifetime = 3600 * 12,
-
-            AllowedScopes = new List<string>
-                    {
-                        "snippet.micro.web",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
-                    }
+            Scopes = new List<string> { "snippet.micro.test" }
         };
-        configurationDbContext.Clients.Add(clients.ToEntity());
+        configurationDbContext.ApiResources.Add(apiResource.ToEntity());
 
+        // apiscope
+        var apiScope = new ApiScope("snippet.micro.test", "TestService API Scope");
+        configurationDbContext.ApiScopes.Add(apiScope.ToEntity());
+
+        // identity resources
         var resources = new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
@@ -108,6 +104,24 @@ using (var scope = app.Services.CreateScope())
         {
             configurationDbContext.IdentityResources.Add(resource.ToEntity());
         }
+
+        // client
+        var client = new Client
+        {
+            ClientId = "snippet.micro.web",
+            ClientName = "react client of wiki application",
+            AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+            RequireClientSecret = false,
+            AccessTokenLifetime = 3600 * 12,
+
+            AllowedScopes = new List<string>
+                    {
+                        "snippet.micro.test",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+        };
+        configurationDbContext.Clients.Add(client.ToEntity());
 
         configurationDbContext.SaveChanges();
     }

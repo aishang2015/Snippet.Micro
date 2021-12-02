@@ -1,7 +1,18 @@
+using Snippet.Micro.Consul;
+using Snippet.Micro.InternalGateway;
+using Snippet.Micro.Yarp;
+using Yarp.ReverseProxy.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
+builder.Services.AddConsulDiscoveryService();
+
+builder.Services.AddReverseProxy()
+    .LoadFromMemory(new List<RouteConfig>(), new List<ClusterConfig>());
+builder.Services.AddHostedService<ReloadProxyConfigService>();
 
 var app = builder.Build();
 

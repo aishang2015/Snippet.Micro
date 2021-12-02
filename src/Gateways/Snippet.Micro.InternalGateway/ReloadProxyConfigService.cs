@@ -2,7 +2,7 @@
 using Snippet.Micro.Yarp;
 using Yarp.ReverseProxy.Configuration;
 
-namespace Snippet.Micro.WebGateway
+namespace Snippet.Micro.InternalGateway
 {
     public class ReloadProxyConfigService : BackgroundService
     {
@@ -72,7 +72,7 @@ namespace Snippet.Micro.WebGateway
                     });
                 }
 
-                (_proxyConfigProvider as InMemoryConfigProvider).Update(routes, clusters);
+            (_proxyConfigProvider as InMemoryConfigProvider).Update(routes, clusters);
 
             }
         }

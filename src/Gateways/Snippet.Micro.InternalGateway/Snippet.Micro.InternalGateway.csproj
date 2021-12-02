@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yarp.ReverseProxy" Version="1.0.0" />
+    <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Consul\Snippet.Micro.Consul.csproj" />
+    <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Yarp\Snippet.Micro.Yarp.csproj" />
   </ItemGroup>
 
 </Project>
