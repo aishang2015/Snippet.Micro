@@ -51,3 +51,42 @@ services:
       - consulserver3
     ports:
       - 8800:8500
+
+  sw-es6:
+    container_name: sw-es6
+    image: elasticsearch:6.8.15
+    privileged: true
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - ./.volumns/swes6/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  sw-oap:
+    container_name: sw-oap
+    image: apache/skywalking-oap-server:8.5.0-es6
+    ports:
+      - "1234:1234"
+      - "11800:11800"
+      - "12800:12800"
+    depends_on:
+      - sw-es6
+    links:
+      - sw-es6
+    environment:
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: sw-es6:9200
+  sw-oap-ui:
+    container_name: sw-oap-ui
+    image: apache/skywalking-ui
+    privileged: true
+    ports:
+      - "9898:8080"
+    depends_on:
+      - sw-es6
+    links:
+      - sw-oap
+    environment:
+      SW_OAP_ADDRESS: sw-oap:12800

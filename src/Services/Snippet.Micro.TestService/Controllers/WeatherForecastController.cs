@@ -22,6 +22,10 @@ namespace Snippet.Micro.TestService.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            var httpclient = new HttpClient();
+            var response = httpclient.GetAsync("http://www.baidu.com").Result;
+            Console.WriteLine(response.Content);
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
