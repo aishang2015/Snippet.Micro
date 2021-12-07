@@ -103,3 +103,17 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
+
+  elk:
+    image: sebp/elk:latest
+    privileged: true
+    container_name: eshop-elk
+    volumes:
+      - ./.volumn/data/elasticsearch:/var/lib/elasticsearch
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+    environment:
+      ES_MIN_MEM: 512m
+      ES_MAX_MEM: 512m

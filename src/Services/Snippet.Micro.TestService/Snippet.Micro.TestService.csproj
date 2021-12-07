@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Consul\Snippet.Micro.Consul.csproj" />
     <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.MassTransit\Snippet.Micro.MassTransit.csproj" />
+    <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Serilog\Snippet.Micro.Serilog.csproj" />
   </ItemGroup>
 
 </Project>

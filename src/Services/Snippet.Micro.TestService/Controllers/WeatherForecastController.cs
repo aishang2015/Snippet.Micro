@@ -20,8 +20,11 @@ namespace Snippet.Micro.TestService.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<WeatherForecast> Get([FromServices] ILogger<WeatherForecastController> logger)
         {
+
+            logger.LogWarning("this is a warning log");
+
             var httpclient = new HttpClient();
             var response = httpclient.GetAsync("http://www.baidu.com").Result;
             Console.WriteLine(response.Content);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Snippet.Micro.Consul;
 using Snippet.Micro.MassTransit;
+using Snippet.Micro.Serilog;
 using Snippet.Micro.TestService.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddRabbitMassTransit(builder.Configuration.GetSection("Rabbit")
 {
     typeof(TestConsumer),typeof(GoodConsumer)
 });
+
+builder.Host.AddElasticsearchLog();
 
 builder.Services
     .AddAuthentication(options =>
