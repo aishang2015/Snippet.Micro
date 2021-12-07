@@ -90,3 +90,16 @@ services:
       - sw-oap
     environment:
       SW_OAP_ADDRESS: sw-oap:12800
+
+  rabbitmq:
+    image: rabbitmq:3.9.11-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin

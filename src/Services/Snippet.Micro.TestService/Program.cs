@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Logging;
 using Snippet.Micro.Consul;
+using Snippet.Micro.MassTransit;
+using Snippet.Micro.TestService.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
 builder.Services.AddConsulRegisterService();
+
+builder.Services.AddRabbitMassTransit(builder.Configuration.GetSection("Rabbit"), new List<Type>
+{
+    typeof(TestConsumer),typeof(GoodConsumer)
+});
 
 builder.Services
     .AddAuthentication(options =>
