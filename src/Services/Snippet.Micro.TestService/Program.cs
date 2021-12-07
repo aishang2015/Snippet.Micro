@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Logging;
 using Snippet.Micro.Consul;
 using Snippet.Micro.MassTransit;
 using Snippet.Micro.TestService.Consumers;

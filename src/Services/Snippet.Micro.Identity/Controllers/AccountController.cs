@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Snippet.Micro.Identity.Data;
 using Snippet.Micro.Identity.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Snippet.Micro.Identity.Controllers
 {

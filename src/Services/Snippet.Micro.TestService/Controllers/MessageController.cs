@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Snippet.Micro.MassTransit.Messages;
 

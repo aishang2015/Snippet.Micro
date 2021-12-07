@@ -1,6 +1,5 @@
 ﻿using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Snippet.Micro.Identity.Models;
 using System.Diagnostics;
 
