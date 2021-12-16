@@ -28,7 +28,8 @@ namespace Snippet.Micro.WebGateway
                 var serviceList = new List<(string, string, string, string)>
                 {
                     ("Snippet.Micro.TestService","test-service-cluster","test-service-route","test"),
-                    ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity")
+                    ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity"),
+                    ("Snippet.Micro.RBACService","rbac-service-cluster","rbac-service-route","rbac")
                 };
 
                 var clusters = new List<ClusterConfig>();

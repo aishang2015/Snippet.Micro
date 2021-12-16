@@ -1,115 +1,70 @@
 version: "3"
 services:
-  consulserver1:
+  dev-consul:
     image: consul:1.9.11
-    container_name: consulserver1
-    hostname: consulserver1
-    command: agent -server -bootstrap -client=0.0.0.0 -ui -node=consulserver1
+    container_name: dev-consul
+    hostname: dev-consul
     ports:
       - 8500:8500
-  consulserver2:
-    image: consul:1.9.11
-    container_name: consulserver2
-    hostname: consulserver2
-    command: agent -server -join=consulserver1 -node=consulserver2
-    depends_on:
-      - consulserver1
-  consulserver3:
-    image: consul:1.9.11
-    container_name: consulserver3
-    hostname: consulserver3
-    command: agent -server -join=consulserver1 -node=consulserver3
-    depends_on:
-      - consulserver1
-  consulclient1:
-    image: consul:1.9.11
-    container_name: consulclient1
-    hostname: consulclient1
-    command: agent -client=0.0.0.0 -retry-join=consulserver1 -node=consulclient1
-    depends_on:
-      - consulserver2
-      - consulserver3
-    ports:
-      - 8600:8500
-  consulclient2:
-    image: consul:1.9.11
-    container_name: consulclient2
-    hostname: consulclient2
-    command: agent -client=0.0.0.0 -retry-join=consulserver1 -node=consulclient2
-    depends_on:
-      - consulserver2
-      - consulserver3
-    ports:
-      - 8700:8500
-  consulclient3:
-    image: consul:1.9.11
-    container_name: consulclient3
-    hostname: consulclient3
-    command: agent -client=0.0.0.0 -retry-join=consulserver1 -node=consulclient3
-    depends_on:
-      - consulserver2
-      - consulserver3
-    ports:
-      - 8800:8500
 
-  sw-es6:
-    container_name: sw-es6
+  dev-sw-es6:
+    container_name: dev-sw-es6
     image: elasticsearch:6.8.15
     privileged: true
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "9201:9200"
+      - "9301:9300"
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: -Xms512m -Xmx512m
     volumes:
       - ./.volumns/swes6/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-  sw-oap:
-    container_name: sw-oap
+  dev-sw-oap:
+    container_name: dev-sw-oap
     image: apache/skywalking-oap-server:8.5.0-es6
     ports:
       - "1234:1234"
       - "11800:11800"
       - "12800:12800"
     depends_on:
-      - sw-es6
+      - dev-sw-es6
     links:
-      - sw-es6
+      - dev-sw-es6
     environment:
       SW_STORAGE: elasticsearch
-      SW_STORAGE_ES_CLUSTER_NODES: sw-es6:9200
-  sw-oap-ui:
-    container_name: sw-oap-ui
+      SW_STORAGE_ES_CLUSTER_NODES: dev-sw-es6:9200
+  dev-sw-oap-ui:
+    container_name: dev-sw-oap-ui
     image: apache/skywalking-ui
     privileged: true
     ports:
       - "9898:8080"
     depends_on:
-      - sw-es6
+      - dev-sw-es6
     links:
-      - sw-oap
+      - dev-sw-oap
     environment:
-      SW_OAP_ADDRESS: sw-oap:12800
+      SW_OAP_ADDRESS: dev-sw-oap:12800
 
-  rabbitmq:
+  dev-rabbitmq:
     image: rabbitmq:3.9.11-management
-    container_name: rabbitmq
-    hostname: rabbitmq
+    container_name: dev-rabbitmq
+    hostname: dev-rabbitmq
     ports:
       - 15672:15672
       - 5672:5672
     volumes:
-      - ./data:/var/lib/rabbitmq
+      - ./.volumns/data/rabbitmq:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
 
-  elk:
+  dev-elk:
     image: sebp/elk:latest
     privileged: true
-    container_name: eshop-elk
+    container_name: dev-elk
     volumes:
-      - ./.volumn/data/elasticsearch:/var/lib/elasticsearch
+      - ./.volumns/data/elk:/var/lib/elasticsearch
     ports:
       - "5601:5601"
       - "9200:9200"

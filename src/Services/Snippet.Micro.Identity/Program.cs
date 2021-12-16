@@ -73,26 +73,27 @@ using (var scope = app.Services.CreateScope())
     var persistedGrantDbContext = scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
-    if (appDbContext.Database.EnsureCreated())
-    {
-        userManager.CreateAsync(new AppUser
-        {
-            UserName = "admin"
-        }, "Abc123...").Wait();
-    }
-
     if (configurationDbContext.Database.EnsureCreated())
     {
         // apiresource
-        var apiResource = new ApiResource("testapi", "TestService API Resource")
+        new List<ApiResource>
         {
-            Scopes = new List<string> { "snippet.micro.test" }
-        };
-        configurationDbContext.ApiResources.Add(apiResource.ToEntity());
+            new ApiResource("testapi", "TestService API Resource")
+            {
+                Scopes = new List<string> { "snippet.micro.test" }
+            },
+            new ApiResource("rbacapi", "RBACService API Resource")
+            {
+                Scopes = new List<string> { "snippet.micro.rbac" }
+            }
+        }.ForEach(apiResource => configurationDbContext.ApiResources.Add(apiResource.ToEntity()));
 
         // apiscope
-        var apiScope = new ApiScope("snippet.micro.test", "TestService API Scope");
-        configurationDbContext.ApiScopes.Add(apiScope.ToEntity());
+        new List<ApiScope>
+        {
+            new ApiScope("snippet.micro.test", "TestService API Scope"),
+            new ApiScope("snippet.micro.rbac", "RBACService API Scope"),
+        }.ForEach(apiScope => configurationDbContext.ApiScopes.Add(apiScope.ToEntity()));
 
         // identity resources
         var resources = new List<IdentityResource>
@@ -117,6 +118,7 @@ using (var scope = app.Services.CreateScope())
             AllowedScopes = new List<string>
                     {
                         "snippet.micro.test",
+                        "snippet.micro.rbac",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
                     }

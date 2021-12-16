@@ -7,7 +7,7 @@ namespace Snippet.Micro.TestService.Controllers
     public class HealthController : ControllerBase
     {
         [HttpGet]
-        public IActionResult AppHealth()
+        public IActionResult ServiceHealth()
         {
             return Ok();
         }
