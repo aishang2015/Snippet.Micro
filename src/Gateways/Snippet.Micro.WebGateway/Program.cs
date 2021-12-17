@@ -14,6 +14,16 @@ builder.Services.AddReverseProxy()
     .LoadFromMemory(new List<RouteConfig>(), new List<ClusterConfig>());
 builder.Services.AddHostedService<ReloadProxyConfigService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+        .SetIsOriginAllowed(o => true)
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +31,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>

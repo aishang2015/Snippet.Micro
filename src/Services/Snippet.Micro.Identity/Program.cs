@@ -5,6 +5,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Snippet.Micro.Consul;
+using Snippet.Micro.Identity;
 using Snippet.Micro.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +44,18 @@ builder.Services.AddIdentityServer(options =>
 }).AddOperationalStore(options =>
 {
     options.ConfigureDbContext = b => b.UseMySql(builder.Configuration.GetConnectionString("OperationDb"), new MySqlServerVersion("8.0.21"));
-}).AddDeveloperSigningCredential();
+}).AddDeveloperSigningCredential()
+.AddProfileService<CustomProfileService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+        .SetIsOriginAllowed(o => true)
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
 
 var app = builder.Build();
 
@@ -52,6 +64,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -114,6 +127,8 @@ using (var scope = app.Services.CreateScope())
             AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
             RequireClientSecret = false,
             AccessTokenLifetime = 3600 * 12,
+
+            AllowedCorsOrigins = { "http://localhost:3000" },
 
             AllowedScopes = new List<string>
                     {

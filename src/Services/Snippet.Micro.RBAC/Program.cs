@@ -60,7 +60,7 @@ builder.Services
     })
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
-        options.Authority = "http://192.168.0.147:10000/identity";
+        options.Authority = "http://localhost:10000/identity";
         options.RequireHttpsMetadata = false;
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
