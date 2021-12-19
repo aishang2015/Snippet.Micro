@@ -5,10 +5,13 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Snippet.Micro.Consul;
-using Snippet.Micro.Identity;
 using Snippet.Micro.Identity.Data;
+using Snippet.Micro.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//  π”√consul≈‰÷√
+builder.AddConsulConfiguraion();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

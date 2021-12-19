@@ -29,7 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.MassTransit",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Serilog", "Infrastructures\Snippet.Micro.Serilog\Snippet.Micro.Serilog.csproj", "{3C85E296-A1D2-4BAB-B64E-1FB842162B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.RBAC", "Services\Snippet.Micro.RBAC\Snippet.Micro.RBAC.csproj", "{CA9A79A1-9C3B-4107-A48E-3392CB3A017F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.RBAC", "Services\Snippet.Micro.RBAC\Snippet.Micro.RBAC.csproj", "{CA9A79A1-9C3B-4107-A48E-3392CB3A017F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{31C5AE61-FB71-497F-9BA8-003DF754E2F4} = {31C5AE61-FB71-497F-9BA8-003DF754E2F4}
+		{80E5DCC0-2EF2-4ABC-AC7F-14F400840BA6} = {80E5DCC0-2EF2-4ABC-AC7F-14F400840BA6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

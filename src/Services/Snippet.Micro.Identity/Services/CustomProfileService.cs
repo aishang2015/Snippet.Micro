@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Snippet.Micro.Identity.Data;
 using System.Security.Claims;
 
-namespace Snippet.Micro.Identity
+namespace Snippet.Micro.Identity.Services
 {
     public class CustomProfileService : IProfileService
     {

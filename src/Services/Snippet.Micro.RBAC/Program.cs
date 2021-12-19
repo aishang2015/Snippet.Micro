@@ -14,6 +14,9 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Ê¹ÓÃconsulÅäÖÃ
+builder.AddConsulConfiguraion();
+
 // consul×¢²á
 builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
 builder.Services.AddConsulRegisterService();
@@ -60,7 +63,7 @@ builder.Services
     })
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
-        options.Authority = "http://localhost:10000/identity";
+        options.Authority = builder.Configuration["Authority"];
         options.RequireHttpsMetadata = false;
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
