@@ -2,6 +2,7 @@ using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Snippet.Micro.Consul;
@@ -16,8 +17,7 @@ builder.AddConsulConfiguraion();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
-builder.Services.AddConsulRegisterService();
+builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

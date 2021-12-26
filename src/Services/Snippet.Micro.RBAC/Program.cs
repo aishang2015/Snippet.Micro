@@ -18,8 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddConsulConfiguraion();
 
 // consul注册
-builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
-builder.Services.AddConsulRegisterService();
+builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
 
 // 分别是数据库 缓存 内存缓存 jwt automapper oauth 用户访问器
 builder.Services.AddDatabase(builder.Configuration);

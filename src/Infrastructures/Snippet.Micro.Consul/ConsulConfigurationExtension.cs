@@ -6,6 +6,11 @@ namespace Snippet.Micro.Consul
 {
     public static class ConsulConfigurationExtension
     {
+        /// <summary>
+        /// 将consul作为配置中心，替换appsetting
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static WebApplicationBuilder AddConsulConfiguraion(this WebApplicationBuilder builder)
         {
             builder.Host.ConfigureAppConfiguration((context, configuration) =>

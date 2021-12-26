@@ -21,14 +21,14 @@
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "AppDb": "Server=host.docker.internal;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;",
-    "ConfigDb": "Server=host.docker.internal;Port=3306;Database=ConfigurationDbContext;Uid=root;Pwd=123456;",
-    "OperationDb": "Server=host.docker.internal;Port=3306;Database=PersistedGrantDbContext;Uid=root;Pwd=123456;"
+    "AppDb": "Server=127.0.0.1;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;",
+    "ConfigDb": "Server=127.0.0.1;Port=3306;Database=ConfigurationDbContext;Uid=root;Pwd=123456;",
+    "OperationDb": "Server=127.0.0.1;Port=3306;Database=PersistedGrantDbContext;Uid=root;Pwd=123456;"
   },
   "Consul": {
     "ServiceName": "Snippet.Micro.IdentityService",
     "ServicePort": "21100",
-    "ConsulIp": "host.docker.internal",
+    "ConsulIp": "127.0.0.1",
     "ConsulPort": "8500"
   }
 }

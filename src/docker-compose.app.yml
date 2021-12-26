@@ -1,0 +1,42 @@
+version: "3"
+services:
+  internal-gateway:
+    container_name: internal-gateway
+    image: internal-gateway
+    build: 
+      context: .
+      dockerfile: Gateways/Snippet.Micro.InternalGateway/Dockerfile
+    volumes:
+      - ./.volumns/services/web-gateway/appsettings.json:/app/appsettings.json
+    ports:
+      - "10000:80"
+  web-gateway:
+    container_name: web-gateway
+    image: web-gateway
+    build: 
+      context: .
+      dockerfile: Gateways/Snippet.Micro.WebGateway/Dockerfile
+    volumes:
+      - ./.volumns/services/internal-gateway/appsettings.json:/app/appsettings.json
+    ports:
+      - "20000:80"
+  identity-service:
+    container_name: identity-service
+    image: identity-service
+    build: 
+      context: .
+      dockerfile: Services/Snippet.Micro.Identity/Dockerfile
+    volumes:
+      - ./.volumns/services/identity-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "21100:80"
+  rbac-service:
+    container_name: rbac-service
+    image: rbac-service
+    build: 
+      context: .
+      dockerfile: Services/Snippet.Micro.RBAC/Dockerfile
+    volumes:
+      - ./.volumns/services/rbac-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "22100:80"

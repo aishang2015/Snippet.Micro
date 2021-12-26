@@ -7,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
-builder.Services.AddConsulDiscoveryService();
+builder.Services.AddConsulDiscoveryService(builder.Configuration.GetSection("Consul"));
 
 builder.Services.AddReverseProxy()
     .LoadFromMemory(new List<RouteConfig>(), new List<ClusterConfig>());
