@@ -1,6 +1,8 @@
 开发中。。。🐛
 
+### 架构图
 
+![image](https://github.com/aishang2015/Snippet.Micro/blob/main/img/architecture.png)
 
 ### 系统组成
 
