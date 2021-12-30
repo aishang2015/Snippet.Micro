@@ -35,18 +35,18 @@
   "Consul": {
     "ServiceName": "Snippet.Micro.RBACService",
     "ServicePort": "22100",
-    "ConsulIp": "host.docker.internal",
+    "ConsulIp": "127.0.0.1",
     "ConsulPort": "8500"
   },
   "Rabbit": {
-    "Host": "host.docker.internal",
+    "Host": "127.0.0.1",
     "UserName": "admin",
     "Password": "admin"
   },
   "DatabaseOption": {
     "Type": "MySQL",
     "Version": "8.0.21", 
-    "Connection": "Server=host.docker.internal;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;" 
+    "Connection": "Server=127.0.0.1;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;" 
   },
-  "Authority":"http://host.docker.internal:10000/identity"
+  "Authority":"http://127.0.0.1:10000/identity"
 }

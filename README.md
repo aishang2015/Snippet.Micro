@@ -25,6 +25,11 @@ NoSQL：Redis
 Actor：Orleans
 
 
+准备环境
+
+// 环境
+
+docker-compose -f docker-compose.env.yml up -d 
 
 启动调试
 
@@ -34,6 +39,8 @@ Actor：Orleans
 docker-compose -f docker-compose.env.yml up -d
 
 // 将配置文件写入consul
+docker exec -it dev-consul consul kv put Services/IdentityServiceConfigDev @/consul/kv/IdentityServiceConfig.dev.json
+
 docker exec -it dev-consul consul kv put Services/IdentityServiceConfigDev @/consul/kv/IdentityServiceConfig.dev.json
 
 docker exec -it dev-consul consul kv put Services/IdentityServiceConfig @/consul/kv/IdentityServiceConfig.json

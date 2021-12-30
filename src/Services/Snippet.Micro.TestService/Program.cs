@@ -10,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddConsulConfig(builder.Configuration.GetSection("Consul"));
-builder.Services.AddConsulRegisterService();
+builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
 
 builder.Services.AddRabbitMassTransit(builder.Configuration.GetSection("Rabbit"), new List<Type>
 {
