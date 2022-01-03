@@ -43,6 +43,9 @@
     "UserName": "admin",
     "Password": "admin"
   },
+  "Redis":{
+    "ConnectionString": "host.docker.internal"
+  },
   "DatabaseOption": {
     "Type": "MySQL",
     "Version": "8.0.21", 

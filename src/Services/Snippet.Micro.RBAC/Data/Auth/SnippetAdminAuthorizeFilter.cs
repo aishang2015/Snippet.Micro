@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Snippet.Micro.RBAC.Core.UserAccessor;
+using Snippet.Micro.Redis;
 
 namespace Snippet.Micro.RBAC.Data.Auth
 {
@@ -11,18 +13,29 @@ namespace Snippet.Micro.RBAC.Data.Auth
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private readonly RedisClient _redisClient;
+
         public SnippetAdminAuthorizeFilter(
             SnippetAdminDbContext dbContext,
             IUserAccessor userAccessor,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            RedisClient redisClient)
         {
             _dbContext = dbContext;
             _userAccessor = userAccessor;
             _httpContextAccessor = httpContextAccessor;
+            _redisClient = redisClient;
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            var redisDataBase = _redisClient.GetDatabase();
+            if (!redisDataBase.SetContains("active_users", _userAccessor.UserName))
+            {
+                context.Result = new StatusCodeResult(403);
+                return;
+            }
+
             //// user not exist or is not actived
             //if (!_dbContext.CacheSet<SnippetAdminUser>().Any(u => u.UserName == _userAccessor.UserName && u.IsActive))
             //{

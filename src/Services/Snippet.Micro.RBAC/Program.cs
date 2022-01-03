@@ -9,7 +9,9 @@ using Snippet.Micro.RBAC.Core.TextJson;
 using Snippet.Micro.RBAC.Core.UserAccessor;
 using Snippet.Micro.RBAC.Data;
 using Snippet.Micro.RBAC.Models;
+using Snippet.Micro.Redis;
 using Snippet.Micro.Serilog;
+using SnippetAdmin.Data.Cache;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +52,9 @@ builder.Services.AddCors(options =>
 
 // httpcontext服务
 builder.Services.AddHttpContextAccessor();
+
+// 使用Redis
+builder.Services.AddRedis(builder.Configuration.GetSection("Redis"));
 
 // 日志
 builder.Host.AddElasticsearchLog();
@@ -106,4 +111,5 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Initialize(DbContextInitializer.InitialSnippetAdminDbContext);
+app.Initialize(RedisCacheInitializer.InitialCache);
 app.Run();

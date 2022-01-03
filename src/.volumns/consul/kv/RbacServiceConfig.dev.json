@@ -43,6 +43,9 @@
     "UserName": "admin",
     "Password": "admin"
   },
+  "Redis":{
+    "ConnectionString": "127.0.0.1"
+  },
   "DatabaseOption": {
     "Type": "MySQL",
     "Version": "8.0.21", 
