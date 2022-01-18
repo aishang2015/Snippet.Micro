@@ -28,7 +28,9 @@ namespace Snippet.Micro.InternalGateway
                 var serviceList = new List<(string, string, string, string)>
                 {
                     ("Snippet.Micro.TestService","test-service-cluster","test-service-route","test"),
-                    ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity")
+                    ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity"),
+                    ("Snippet.Micro.RBACService","rbac-service-cluster","rbac-service-route","rbac"),
+                    ("Snippet.Micro.SchedulerService","scheduler-service-cluster","scheduler-service-route","scheduler")
                 };
 
                 var clusters = new List<ClusterConfig>();
@@ -47,6 +49,7 @@ namespace Snippet.Micro.InternalGateway
                                 Address = $"http://{service.Address}:{service.Port}/",
                             };
                     }
+
                     clusters.Add(new ClusterConfig()
                     {
                         ClusterId = serviceInfo.Item2,

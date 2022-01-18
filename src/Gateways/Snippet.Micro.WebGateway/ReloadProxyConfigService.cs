@@ -29,7 +29,8 @@ namespace Snippet.Micro.WebGateway
                 {
                     ("Snippet.Micro.TestService","test-service-cluster","test-service-route","test"),
                     ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity"),
-                    ("Snippet.Micro.RBACService","rbac-service-cluster","rbac-service-route","rbac")
+                    ("Snippet.Micro.RBACService","rbac-service-cluster","rbac-service-route","rbac"),
+                    ("Snippet.Micro.SchedulerService","scheduler-service-cluster","scheduler-service-route","scheduler")
                 };
 
                 var clusters = new List<ClusterConfig>();
