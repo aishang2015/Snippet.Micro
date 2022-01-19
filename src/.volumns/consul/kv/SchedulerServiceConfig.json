@@ -1,0 +1,53 @@
+{
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "http://0.0.0.0:23100"
+      }
+      //"Https": {
+      //  "Url": "https://localhost:6001",
+      //  "Certificate": {
+      //    "Path": "<path to .pfx file>",
+      //    "Password": "<certificate password>"
+      //  }
+      //}
+    }
+  },
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information",
+        "Microsoft.AspNetCore": "Warning",
+        "Microsoft.AspNetCore.Authentication": "Warning",
+        "System": "Warning",
+
+        // ef相关
+        "Microsoft.EntityFrameworkCore.Infrastructure": "Warning", // 上下文创建
+        "Microsoft.EntityFrameworkCore.Database.Connection": "Warning", // 数据库连接
+        "Microsoft.EntityFrameworkCore.Database.Command": "Information", // 数据库命令
+        "Microsoft.EntityFrameworkCore.Database.Transaction": "Warning" // 数据库事务
+      }
+    }
+  },
+  "AllowedHosts": "*",
+  "Consul": {
+    "ServiceName": "Snippet.Micro.SchedulerService",
+    "ServicePort": "23100",
+    "ConsulIp": "host.docker.internal",
+    "ConsulPort": "8500"
+  },
+  "Rabbit": {
+    "Host": "host.docker.internal",
+    "UserName": "admin",
+    "Password": "admin"
+  },
+  "Redis":{
+    "ConnectionString": "host.docker.internal"
+  },
+  "Mongo":{
+    "ConnectionString": "mongodb://hangfire:123456@host.docker.internal:27017/hangfire"
+  },
+  "Authority":"http://host.docker.internal:10000/identity"
+}

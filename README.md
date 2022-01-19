@@ -1,4 +1,4 @@
-开发中。。。🐛
+🐛🐛
 
 ### 架构图
 
@@ -22,7 +22,7 @@
 
 消息队列：Rabbit
 
-NoSQL：Redis
+NoSQL：Redis,Mongo
 
 Actor：Orleans
 
@@ -33,23 +33,24 @@ Actor：Orleans
 ```bash
 // 1.准备环境
 // 启动环境需要的镜像
-docker-compose -f docker-compose.env.yml up -d
+docker-compose -f docker-compose.env.yml -p "snippet-micro-environment"  up -d
 
-// 将配置文件写入consul，dev是本地调试用的，不带dev的是docker运行时需要的
+// 上一步完成后在本地环境执行以下命令，将服务需要的配置文件写入consul
 
 docker exec -it dev-consul consul kv put Services/IdentityServiceConfigDev @/consul/kv/IdentityServiceConfig.dev.json
-
 docker exec -it dev-consul consul kv put Services/IdentityServiceConfig @/consul/kv/IdentityServiceConfig.json
 
 docker exec -it dev-consul consul kv put Services/RbacServiceConfigDev @/consul/kv/RbacServiceConfig.dev.json
-
 docker exec -it dev-consul consul kv put Services/RbacServiceConfig @/consul/kv/RbacServiceConfig.json
+
+docker exec -it dev-consul consul kv put Services/SchedulerServiceConfigDev @/consul/kv/SchedulerServiceConfig.dev.json
+docker exec -it dev-consul consul kv put Services/SchedulerServiceConfig @/consul/kv/SchedulerServiceConfig.json
 
 // 2.调试或直接启动
 // 可以通过vs调试启动
 
 // 或者使用docker启动
-docker-compose -f docker-compose.app.yml up -d
+docker-compose -f docker-compose.app.yml -p "snippet-micro-services" up -d
 ```
 
 
@@ -65,7 +66,7 @@ ELK      					http://本机ip:5601/
 	认证中心服务地址				/identity/XXXX
 	角色管理服务地址				/rbac/XXXX
 	调度任务服务地址				/scheduler/XXXX
-		任务调度服务面板	   http://本机ip:10000/scheduler/hangfire
+		任务调度服务面板	   		http://本机ip:10000/scheduler/hangfire
 
 数据库，redis，mongodb以及rabbitmq的地址参照 docker-compose env文件
 	

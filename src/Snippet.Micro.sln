@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.RBAC", "Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Redis", "Infrastructures\Snippet.Micro.Redis\Snippet.Micro.Redis.csproj", "{38B7AD24-11A5-4D6E-A8FF-0D85B1B9B1E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.Scheduler", "Services\Snippet.Micro.Scheduler\Snippet.Micro.Scheduler.csproj", "{2313CAA2-8C4D-49F2-BF12-B72E098258F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Scheduler", "Services\Snippet.Micro.Scheduler\Snippet.Micro.Scheduler.csproj", "{2313CAA2-8C4D-49F2-BF12-B72E098258F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,10 @@
 version: "3"
+
+networks:
+  snippet-micro-bridge:
+    external:
+      name: snippet-micro-environment_snippet-micro-bridge #environment的文件创建的网络名称实际上是【stack名+network名】
+
 services:
   internal-gateway:
     container_name: internal-gateway
@@ -10,6 +16,8 @@ services:
       - ./.volumns/services/web-gateway/appsettings.json:/app/appsettings.json
     ports:
       - "10000:80"
+    networks:
+      - snippet-micro-bridge
   web-gateway:
     container_name: web-gateway
     image: web-gateway
@@ -20,6 +28,8 @@ services:
       - ./.volumns/services/internal-gateway/appsettings.json:/app/appsettings.json
     ports:
       - "20000:80"
+    networks:
+      - snippet-micro-bridge
   identity-service:
     container_name: identity-service
     image: identity-service
@@ -30,6 +40,8 @@ services:
       - ./.volumns/services/identity-service/appsettings.json:/app/appsettings.json
     ports:
       - "21100:80"
+    networks:
+      - snippet-micro-bridge
   rbac-service:
     container_name: rbac-service
     image: rbac-service
@@ -40,3 +52,17 @@ services:
       - ./.volumns/services/rbac-service/appsettings.json:/app/appsettings.json
     ports:
       - "22100:80"
+    networks:
+      - snippet-micro-bridge
+  scheduler-service:
+    container_name: scheduler-service
+    image: scheduler-service
+    build: 
+      context: .
+      dockerfile: Services/Snippet.Micro.Scheduler/Dockerfile
+    volumes:
+      - ./.volumns/services/scheduler-service/appsettings.json:/app/appsettings.json
+    ports:
+      - "23100:80"
+    networks:
+      - snippet-micro-bridge

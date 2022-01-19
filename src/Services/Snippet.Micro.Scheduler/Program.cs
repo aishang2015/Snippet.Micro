@@ -3,9 +3,12 @@ using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using Hangfire.Mongo.Migration.Strategies.Backup;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Localization;
 using MongoDB.Driver;
 using Snippet.Micro.Consul;
+using Snippet.Micro.Scheduler.Filters;
 using Snippet.Micro.Serilog;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +19,7 @@ builder.AddConsulConfiguraion();
 builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
 
 // 使用elk日志
-//builder.Host.AddElasticsearchLog();
+builder.Host.AddElasticsearchLog();
 
 // 使用认证中心
 builder.Services
@@ -51,7 +54,7 @@ builder.Services.AddHangfire(configuration => configuration
                 BackupStrategy = new CollectionMongoBackupStrategy()
             },
             Prefix = "hangfire.mongo",
-            CheckConnection = true ,
+            CheckConnection = true,
             CheckQueuedJobsStrategy = CheckQueuedJobsStrategy.TailNotificationsCollection
         })
     );
@@ -67,8 +70,36 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+var supportedCultures = new[]
+{
+  new CultureInfo("zh-CN"),
+  new CultureInfo("en-US")
+};
 
-app.UseHangfireDashboard(); 
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("zh-CN"),
+
+    // Formatting numbers, dates, etc.
+    SupportedCultures = supportedCultures,
+    // UI strings that we have localized.
+    SupportedUICultures = supportedCultures,
+
+    RequestCultureProviders = new List<IRequestCultureProvider>
+    {
+        new QueryStringRequestCultureProvider(),
+        new CookieRequestCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider()
+    }
+});
+
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    DashboardTitle = "Snippet Micro Dashboard",
+    PrefixPath = "/scheduler",
+    IgnoreAntiforgeryToken = true,
+    Authorization = new[] { new CustomAuthorizeFilter() }
+});
 BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
 app.UseAuthorization();
