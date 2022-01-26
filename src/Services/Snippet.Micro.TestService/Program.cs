@@ -17,8 +17,6 @@ builder.Services.AddRabbitMassTransit(builder.Configuration.GetSection("Rabbit")
     typeof(TestConsumer),typeof(GoodConsumer)
 });
 
-builder.Host.AddElasticsearchLog();
-
 builder.Services
     .AddAuthentication(options =>
     {

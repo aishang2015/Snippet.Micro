@@ -32,6 +32,7 @@ namespace Snippet.Micro.MassTransit
                         configure.ReceiveEndpoint(type.FullName, e =>
                         {
                             e.ConfigureConsumer(context, type);
+                            //e.PrefetchCount = 1;
                         });
                     }
                 });

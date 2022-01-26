@@ -14,11 +14,10 @@ namespace Snippet.Micro.TestService.Consumers
             massTransitOption = options.Value;
         }
 
-        public Task Consume(ConsumeContext<TestMessage> context)
+        public async Task Consume(ConsumeContext<TestMessage> context)
         {
-            Console.WriteLine($"rabbit mq's host is {massTransitOption.Host}");
+            await Task.Delay(5000);
             Console.WriteLine($"TestConsumer get a message,the id is{context.Message.TestId}");
-            return Task.CompletedTask;
         }
     }
 }
