@@ -15,12 +15,16 @@ builder.Services.AddHostedService<ReloadProxyConfigService>();
 
 builder.Services.AddCors(options =>
 {
+    var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>();
+    var methods = builder.Configuration.GetSection("Cors:Mehtods").Get<string[]>();
+    var headers = builder.Configuration.GetSection("Cors:Headers").Get<string[]>();
+
     options.AddPolicy("CorsPolicy",
         builder => builder
-        .SetIsOriginAllowed(o => true)
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+            .WithOrigins(origins).SetIsOriginAllowedToAllowWildcardSubdomains()
+            .WithMethods(methods)
+            .WithHeaders(headers)
+            .DisallowCredentials());
 });
 
 var app = builder.Build();
