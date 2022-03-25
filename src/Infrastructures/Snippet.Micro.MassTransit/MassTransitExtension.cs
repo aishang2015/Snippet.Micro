@@ -1,4 +1,6 @@
-﻿using MassTransit;
+﻿
+
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,7 +39,13 @@ namespace Snippet.Micro.MassTransit
                     }
                 });
             });
-            services.AddMassTransitHostedService();
+
+            services.Configure<MassTransitHostOptions>(options =>
+            {
+                options.WaitUntilStarted = true;
+                options.StartTimeout = TimeSpan.FromSeconds(30);
+                options.StopTimeout = TimeSpan.FromMinutes(1);
+            });
 
             return services;
         }
