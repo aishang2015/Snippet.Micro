@@ -22,60 +22,56 @@ namespace Snippet.Micro.InternalGateway
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(8));
-
-                // service name, cluster id,route id ,route path
-                var serviceList = new List<(string, string, string, string)>
-                {
-                    ("Snippet.Micro.TestService","test-service-cluster","test-service-route","test"),
-                    ("Snippet.Micro.IdentityService","identity-service-cluster","identity-service-route","identity"),
-                    ("Snippet.Micro.RBACService","rbac-service-cluster","rbac-service-route","rbac"),
-                    ("Snippet.Micro.SchedulerService","scheduler-service-cluster","scheduler-service-route","scheduler")
-                };
+                await Task.Delay(TimeSpan.FromSeconds(20));
 
                 var clusters = new List<ClusterConfig>();
                 var routes = new List<RouteConfig>();
 
-                foreach (var serviceInfo in serviceList)
+                var services = await _discoveryService.GetServicesAsync();
+                foreach (var group in services.GroupBy(s => s.Service))
                 {
+                    var serviceName = group.Key;
+                    var serviceKey = group.Key.Split('.').Last().ToLower();
+                    var clusterName = $"{serviceKey}-cluster";
+                    var routeName = $"{serviceKey}-route";
+                    var routePath = serviceKey.Replace("service", string.Empty);
                     var destinations = new Dictionary<string, DestinationConfig>();
-                    var services = await _discoveryService.GetServicesAsync(serviceInfo.Item1);
-                    for (var i = 0; i < services.Count; i++)
+
+                    var groupServices = group.ToList();
+                    for (var i = 0; i < group.Count(); i++)
                     {
-                        var service = services[i];
-                        destinations[$"{service.Service}/destination{i}"] =
+                        var detail = groupServices[i];
+                        destinations[$"{serviceName}/destination{i}"] =
                             new DestinationConfig
                             {
-                                Address = $"http://{service.Address}:{service.Port}/",
+                                Address = $"http://{detail.Address}:{detail.Port}/",
                             };
                     }
-
                     clusters.Add(new ClusterConfig()
                     {
-                        ClusterId = serviceInfo.Item2,
+                        ClusterId = clusterName,
                         Destinations = destinations,
                         LoadBalancingPolicy = "PowerOfTwoChoices"
                     });
-
                     routes.Add(new RouteConfig()
                     {
-                        RouteId = serviceInfo.Item3,
-                        ClusterId = serviceInfo.Item2,
+                        RouteId = routeName,
+                        ClusterId = clusterName,
                         Match = new RouteMatch
                         {
-                            Path = $"/{serviceInfo.Item4}/{{**catch-all}}",
+                            Path = $"/{routePath}/{{**catch-all}}",
                         },
                         Transforms = new List<Dictionary<string, string>>
-                        {
-                            new Dictionary<string, string>()
                             {
-                                { "PathPattern","/{**catch-all}" }
+                                new Dictionary<string, string>()
+                                {
+                                    { "PathPattern","/{**catch-all}" }
+                                }
                             }
-                        }
                     });
                 }
 
-            (_proxyConfigProvider as InMemoryConfigProvider).Update(routes, clusters);
+                (_proxyConfigProvider as InMemoryConfigProvider).Update(routes, clusters);
 
             }
         }
