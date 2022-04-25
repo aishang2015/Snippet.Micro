@@ -71,8 +71,7 @@ namespace Snippet.Micro.WebGateway
                     });
                 }
 
-                (_proxyConfigProvider as InMemoryConfigProvider).Update(routes, clusters);
-
+                ((InMemoryConfigProvider)_proxyConfigProvider).Update(routes, clusters);
             }
         }
     }
