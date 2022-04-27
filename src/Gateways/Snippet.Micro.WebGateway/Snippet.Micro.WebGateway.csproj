@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Common\Snippet.Micro.Common.csproj" />
     <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Consul\Snippet.Micro.Consul.csproj" />
     <ProjectReference Include="..\..\Infrastructures\Snippet.Micro.Yarp\Snippet.Micro.Yarp.csproj" />
   </ItemGroup>

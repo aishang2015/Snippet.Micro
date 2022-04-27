@@ -34,9 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Scheduler", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Refit", "Infrastructures\Snippet.Micro.Refit\Snippet.Micro.Refit.csproj", "{7539AE8F-08A0-4BA3-866A-C2839D41B0B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.EntityFrameworkCore", "Infrastructures\Snippet.Micro.EntityFrameworkCore\Snippet.Micro.EntityFrameworkCore.csproj", "{6946AFD6-419E-44CD-8C6F-0A9773AEED1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.EntityFrameworkCore", "Infrastructures\Snippet.Micro.EntityFrameworkCore\Snippet.Micro.EntityFrameworkCore.csproj", "{6946AFD6-419E-44CD-8C6F-0A9773AEED1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippet.Micro.Common", "Infrastructures\Snippet.Micro.Common\Snippet.Micro.Common.csproj", "{622F0727-FDFD-4AAA-95D1-4F2CA7D06EB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snippet.Micro.Common", "Infrastructures\Snippet.Micro.Common\Snippet.Micro.Common.csproj", "{622F0727-FDFD-4AAA-95D1-4F2CA7D06EB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

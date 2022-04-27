@@ -57,6 +57,7 @@ namespace Snippet.Micro.WebGateway
                     {
                         RouteId = routeName,
                         ClusterId = clusterName,
+                        AuthorizationPolicy = routePath != "identity" ? "customPolicy" : string.Empty,
                         Match = new RouteMatch
                         {
                             Path = $"/{routePath}/{{**catch-all}}",

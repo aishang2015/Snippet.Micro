@@ -57,7 +57,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddRedis(builder.Configuration.GetSection("Redis"));
 
 // ÈÕÖ¾
-builder.Host.AddElasticsearchLog();
+builder.AddFileLog();
 
 builder.Services
     .AddAuthentication(options =>
@@ -84,7 +84,7 @@ if (builder.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.IndexStream = () => Assembly.GetExecutingAssembly().GetManifestResourceStream("SnippetAdmin.Swagger.index.html");
+        //c.IndexStream = () => Assembly.GetExecutingAssembly().GetManifestResourceStream("SnippetAdmin.Swagger.index.html");
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "SnippetAdmin v1");
     });
 }

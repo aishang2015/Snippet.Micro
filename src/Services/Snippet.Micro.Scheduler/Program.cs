@@ -19,7 +19,7 @@ builder.AddConsulConfiguraion();
 builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
 
 // 使用elk日志
-builder.Host.AddElasticsearchLog();
+builder.AddElasticsearchLog();
 
 // 使用认证中心
 builder.Services
