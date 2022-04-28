@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System.Linq;
 using System.Security.Claims;
 
 namespace Snippet.Micro.Common.Midlewares

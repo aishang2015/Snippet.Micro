@@ -42,7 +42,7 @@ namespace Snippet.Micro.Serilog
                 string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs/error", "log-error-.txt");
                 string serilogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs/serilog", "log-serilog-.txt");
                 string logFormat = @"{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3} {SourceContext:l}] {Message:lj}{NewLine}{Exception}";
-                
+
                 configuration
                     .ReadFrom.Configuration(context.Configuration)
                     .ReadFrom.Services(services)

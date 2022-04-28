@@ -1,10 +1,5 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Snippet.Micro.Common.Midlewares;
 using Snippet.Micro.Consul;
-using Snippet.Micro.MassTransit;
-using Snippet.Micro.Serilog;
-using Snippet.Micro.TestService.Consumers;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 

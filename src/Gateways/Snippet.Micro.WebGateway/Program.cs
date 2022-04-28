@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Protocols;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Snippet.Micro.Common.Midlewares;
 using Snippet.Micro.Consul;
 using Snippet.Micro.WebGateway;
 using Snippet.Micro.Yarp;
-using System.Security.Claims;
 using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);

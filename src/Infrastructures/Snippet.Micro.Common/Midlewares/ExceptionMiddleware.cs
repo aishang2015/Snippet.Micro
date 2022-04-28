@@ -22,12 +22,12 @@ namespace Snippet.Micro.RBAC.Core.Middleware
                         httpContext.Response.StatusCode = StatusCodes.Status200OK;
                         httpContext.Response.ContentType = "application/json; charset=utf-8";
                         await JsonSerializer.SerializeAsync(httpContext.Response.Body,
-                            CommonResultExtension.Fail(CommonConstants.SYSTEM_ERR_0001), 
+                            CommonResultExtension.Fail(CommonConstants.SYSTEM_ERR_0001),
                             new JsonSerializerOptions
-                        {
-                            // 首字母小写
-                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                        });
+                            {
+                                // 首字母小写
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                            });
                     }
                 });
             });
