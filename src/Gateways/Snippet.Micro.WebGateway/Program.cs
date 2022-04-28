@@ -71,7 +71,6 @@ app.UseCors("CorsPolicy");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseAuthToHeader();
 
 app.UseEndpoints(endpoints =>

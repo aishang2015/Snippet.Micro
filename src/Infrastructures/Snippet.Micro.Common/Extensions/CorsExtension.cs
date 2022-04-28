@@ -24,7 +24,7 @@ namespace Snippet.Micro.Common.Extensions
                         .WithOrigins(origins).SetIsOriginAllowedToAllowWildcardSubdomains()
                         .WithMethods(methods)
                         .WithHeaders(headers)
-                        .AllowCredentials());
+                        .DisallowCredentials());
             });
 
             return builder;

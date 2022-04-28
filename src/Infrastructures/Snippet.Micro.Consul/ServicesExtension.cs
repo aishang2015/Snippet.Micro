@@ -1,4 +1,5 @@
 ﻿using Consul;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,59 +8,28 @@ namespace Snippet.Micro.Consul
     public static class ServicesExtension
     {
 
-        #region 注册配置
-
-        /// <summary>
-        /// 添加consul配置，注册服务和发现服务都依赖此配置
-        /// </summary>
-        public static IServiceCollection AddConsulConfig(this IServiceCollection services,
-            ConsulOption consulOption)
-        {
-            services.Configure<ConsulOption>(o => o = consulOption);
-
-            services.AddSingleton<IConsulClient>(new ConsulClient(x => x.Address =
-                new Uri($"http://{consulOption.ConsulIp}:{consulOption.ConsulPort}")));
-            return services;
-        }
-
-        /// <summary>
-        /// 添加consul配置，注册服务和发现服务都依赖此配置
-        /// </summary>
-        public static IServiceCollection AddConsulConfig(this IServiceCollection services,
-            IConfigurationSection configurationSection)
-        {
-            services.Configure<ConsulOption>(configurationSection);
-            var consulOption = configurationSection.Get<ConsulOption>();
-
-            services.AddSingleton<IConsulClient>(new ConsulClient(x => x.Address =
-                new Uri($"http://{consulOption.ConsulIp}:{consulOption.ConsulPort}")));
-            return services;
-        }
-
-        #endregion
-
         #region 注册服务
 
         /// <summary>
         /// 将服务注册到consul
         /// </summary>
-        public static IServiceCollection AddConsulRegisterService(this IServiceCollection services,
+        public static WebApplicationBuilder AddConsulRegisterService(this WebApplicationBuilder builder,
             ConsulOption consulOption)
         {
-            services.AddConsulConfig(consulOption);
-            services.AddHostedService<ConsulRegisterService>();
-            return services;
+            builder.Services.AddConsulConfig(consulOption);
+            builder.Services.AddHostedService<ConsulRegisterService>();
+            return builder;
         }
 
         /// <summary>
         /// 将服务注册到consul
         /// </summary>
-        public static IServiceCollection AddConsulRegisterService(this IServiceCollection services,
-            IConfigurationSection configurationSection)
+        public static WebApplicationBuilder AddConsulRegisterService(this WebApplicationBuilder builder)
         {
-            services.AddConsulConfig(configurationSection);
-            services.AddHostedService<ConsulRegisterService>();
-            return services;
+            var configurationSection = builder.Configuration.GetSection("Consul");
+            builder.Services.AddConsulConfig(configurationSection);
+            builder.Services.AddHostedService<ConsulRegisterService>();
+            return builder;
         }
 
         #endregion
@@ -85,6 +55,37 @@ namespace Snippet.Micro.Consul
         {
             services.AddConsulConfig(configurationSection);
             services.AddSingleton<IServiceDiscoveryService, ServiceDiscoveryService>();
+            return services;
+        }
+
+        #endregion
+
+        #region 注册配置
+
+        /// <summary>
+        /// 添加consul配置，注册服务和发现服务都依赖此配置
+        /// </summary>
+        private static IServiceCollection AddConsulConfig(this IServiceCollection services,
+            ConsulOption consulOption)
+        {
+            services.Configure<ConsulOption>(o => o = consulOption);
+
+            services.AddSingleton<IConsulClient>(new ConsulClient(x => x.Address =
+                new Uri($"http://{consulOption.ConsulIp}:{consulOption.ConsulPort}")));
+            return services;
+        }
+
+        /// <summary>
+        /// 添加consul配置，注册服务和发现服务都依赖此配置
+        /// </summary>
+        private static IServiceCollection AddConsulConfig(this IServiceCollection services,
+            IConfigurationSection configurationSection)
+        {
+            services.Configure<ConsulOption>(configurationSection);
+            var consulOption = configurationSection.Get<ConsulOption>();
+
+            services.AddSingleton<IConsulClient>(new ConsulClient(x => x.Address =
+                new Uri($"http://{consulOption.ConsulIp}:{consulOption.ConsulPort}")));
             return services;
         }
 

@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddConsulConfiguraion();
 
 // 注册服务
-builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
+builder.AddConsulRegisterService();
 
 // 使用elk日志
 builder.AddElasticsearchLog();

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Snippet.Micro.Consul;
 using Snippet.Micro.Identity.Data;
 using Snippet.Micro.Identity.Services;
@@ -21,7 +20,7 @@ builder.AddConsulConfiguraion();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddConsulRegisterService(builder.Configuration.GetSection("Consul"));
+builder.AddConsulRegisterService();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

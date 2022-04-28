@@ -31,6 +31,11 @@ namespace Snippet.Micro.Common.Midlewares
             return app;
         }
 
+        /// <summary>
+        /// 从header中拿取认证信息
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static WebApplication UseHeaderToAuth(this WebApplication app)
         {
             app.Use(async (context, next) =>
