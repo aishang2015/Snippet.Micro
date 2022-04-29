@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Snippet.Micro.Rbac.App.Constants;
 
 namespace Snippet.Micro.Rbac.App.Models.RBAC.User
 {
@@ -39,12 +40,12 @@ namespace Snippet.Micro.Rbac.App.Models.RBAC.User
     {
         public AddOrUpdateUserInputModelValidator()
         {
-            RuleFor(x => x.UserName).NotEmpty();
-            RuleFor(x => x.UserName).MaximumLength(20);
-            RuleFor(x => x.UserName).Matches("^[A-Za-z0-9]+$");
+            RuleFor(x => x.UserName).NotEmpty().WithMessage(MessageConstant.USER_ERROR_0002);
+            RuleFor(x => x.UserName).MaximumLength(20).WithMessage(MessageConstant.USER_ERROR_0003);
+            RuleFor(x => x.UserName).Matches("^[A-Za-z0-9]+$").WithMessage(MessageConstant.USER_ERROR_0004);
 
-            RuleFor(x => x.RealName).NotEmpty();
-            RuleFor(x => x.RealName).MaximumLength(20);
+            RuleFor(x => x.RealName).NotEmpty().WithMessage(MessageConstant.USER_ERROR_0005);
+            RuleFor(x => x.RealName).MaximumLength(20).WithMessage(MessageConstant.USER_ERROR_0006);
         }
     }
 }

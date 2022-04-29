@@ -5,6 +5,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Snippet.Micro.Consul;
 using Snippet.Micro.Identity.Data;
 using Snippet.Micro.Identity.Services;
@@ -77,38 +78,41 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-// todo 下边这段代码会引起IDX10501错误
-//app.Use(async (context, next) =>
-//{
-//    //设置stream存放ResponseBody
-//    var responseOriginalBody = context.Response.Body;
-//    using var memStream = new MemoryStream();
-//    context.Response.Body = memStream;
 
-//    await next.Invoke();
+app.UseWhen(context =>
+        context.Request.Path.StartsWithSegments("/connect/token"), app =>
+            app.Use(async (context, next) =>
+            {
+                //设置stream存放ResponseBody
+                var responseOriginalBody = context.Response.Body;
+                using var memStream = new MemoryStream();
+                context.Response.Body = memStream;
 
-//    var result = context.Response.Body;
+                await next.Invoke();
 
-//    //处理执行其他中间件后的ResponseBody
-//    memStream.Position = 0;
-//    var responseReader = new StreamReader(memStream);
-//    var responseBody = await responseReader.ReadToEndAsync();
+                var result = context.Response.Body;
 
-//    var newResult = new
-//    {
-//        IsSuccess = true,
-//        Message = string.Empty,
-//        Data = JsonConvert.DeserializeObject(responseBody)
-//    };
-//    var buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newResult));
+                //处理执行其他中间件后的ResponseBody
+                memStream.Position = 0;
+                var responseReader = new StreamReader(memStream);
+                var responseBody = await responseReader.ReadToEndAsync();
 
-//    var ms2 = new MemoryStream();
-//    ms2.Write(buffer, 0, buffer.Length);
-//    ms2.Seek(0, SeekOrigin.Begin);
+                var newResult = new
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = JsonConvert.DeserializeObject(responseBody)
+                };
+                var buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newResult));
 
-//    await ms2.CopyToAsync(responseOriginalBody);
-//    context.Response.Body = responseOriginalBody;
-//});
+                var ms2 = new MemoryStream();
+                ms2.Write(buffer, 0, buffer.Length);
+                ms2.Seek(0, SeekOrigin.Begin);
+
+                await ms2.CopyToAsync(responseOriginalBody);
+                context.Response.Body = responseOriginalBody;
+            })
+);
 
 app.UseRouting();
 

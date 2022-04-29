@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Snippet.Micro.Rbac.App.Constants;
 
 namespace Snippet.Micro.Rbac.App.Models.RBAC.User
 {
@@ -19,8 +20,8 @@ namespace Snippet.Micro.Rbac.App.Models.RBAC.User
     {
         public AddOrgMemberInputModelValidator()
         {
-            RuleFor(x => x.UserIds).NotNull();
-            RuleFor(x => x.UserIds).Must(p => p.Length > 0);
+            RuleFor(x => x.UserIds).NotNull().WithMessage(MessageConstant.ORGANIZATION_ERROR_0007);
+            RuleFor(x => x.UserIds).Must(p => p.Length > 0).WithMessage(MessageConstant.ORGANIZATION_ERROR_0007);
         }
     }
 }

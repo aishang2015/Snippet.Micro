@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Snippet.Micro.Rbac.App.Constants;
 
 namespace Snippet.Micro.Rbac.App.Models.RBAC.User
 {
@@ -24,10 +25,10 @@ namespace Snippet.Micro.Rbac.App.Models.RBAC.User
     {
         public SetUserPasswordInputModelValidator()
         {
-            RuleFor(x => x.Password).NotEmpty();
-            RuleFor(x => x.Password).MaximumLength(20);
+            RuleFor(x => x.Password).NotEmpty().WithMessage(MessageConstant.USER_ERROR_0007);
+            RuleFor(x => x.Password).MaximumLength(20).WithMessage(MessageConstant.USER_ERROR_0008);
 
-            RuleFor(x => x.ConfirmPassword).NotEmpty();
+            RuleFor(x => x.ConfirmPassword).NotEmpty().WithMessage(MessageConstant.USER_ERROR_0009);
         }
     }
 }

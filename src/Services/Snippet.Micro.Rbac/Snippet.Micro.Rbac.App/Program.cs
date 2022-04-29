@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Snippet.Micro.Common.Extensions;
 using Snippet.Micro.Common.Midlewares;
 using Snippet.Micro.Consul;
@@ -9,18 +11,27 @@ using Snippet.Micro.Rbac.App.Models;
 using Snippet.Micro.RBAC.Core.Middleware;
 using Snippet.Micro.RBAC.Data;
 using Snippet.Micro.Serilog;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.AddConsulConfiguraion()     // 配置中心
     .AddConsulRegisterService()     // 服务注册
-    .AddFileLog();                  // 日志
+    .AddFileLog();                   // 日志  
 
 builder.Services.AddCustomSwaggerGen()                  // swagger
     .AddHttpContextAccessor()                           // httpcontext
     .AddAutoMapper(typeof(AutoMapperProfile))           // auto mapper
-    .AddControllers();
+    .AddControllers()
+    .AddFluentValidation(configuration =>
+    {
+        configuration.ValidatorOptions.CascadeMode = CascadeMode.Stop;
+        configuration.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    });
+
+builder
+    .ConfigureApiBehavior();        // 修改modelstate的返回形式        
 
 builder.Services
     .AddIdentityDatabase<SnippetAdminDbContext, SnippetAdminUser, SnippetAdminRole, int>
