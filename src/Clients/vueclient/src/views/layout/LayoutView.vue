@@ -11,7 +11,7 @@
       <el-menu id="nav-sider" default-active="2">
         <router-link to="/" class="no-decroation">
           <el-menu-item index="1">
-            <el-icon><icon-menu /></el-icon>
+            <el-icon><money /></el-icon>
             <span>仪表盘</span>
           </el-menu-item>
         </router-link>
@@ -35,7 +35,9 @@
           </template>
           <el-menu-item index="3-1">网关管理</el-menu-item>
           <el-menu-item index="3-2">服务管理</el-menu-item>
-          <el-menu-item index="3-3">管理</el-menu-item>
+          <router-link to="/api" class="no-decroation">
+            <el-menu-item index="3-3">接口管理</el-menu-item>
+          </router-link>
         </el-sub-menu>
       </el-menu>
       <div id="view-body">
@@ -65,7 +67,7 @@
     user-select: none;
     border-bottom-color: lightblue;
     z-index: 100;
-    justify-content:space-between;
+    justify-content: space-between;
 
     #title {
       line-height: 58px;

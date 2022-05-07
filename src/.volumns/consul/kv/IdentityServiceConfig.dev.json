@@ -2,7 +2,7 @@
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:21100"
+        "Url": "http://0.0.0.0:21000"
       }
       //"Https": {
       //  "Url": "https://localhost:6001",
@@ -27,7 +27,7 @@
   },
   "Consul": {
     "ServiceName": "Snippet.Micro.IdentityService",
-    "ServicePort": "21100",
+    "ServicePort": "21000",
     "ConsulIp": "127.0.0.1",
     "ConsulPort": "8500"
   }

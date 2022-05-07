@@ -1,4 +1,4 @@
-🐛🐛
+开发中🐛🐛
 
 ### 架构图
 
@@ -11,6 +11,8 @@
 服务注册发现：Consul
 
 配置中心：Consul
+
+服务间调用：Refit
 
 统一认证中心：IdentityServer
 
@@ -45,6 +47,9 @@ docker exec -it dev-consul consul kv put Services/RbacServiceConfig @/consul/kv/
 
 docker exec -it dev-consul consul kv put Services/SchedulerServiceConfigDev @/consul/kv/SchedulerServiceConfig.dev.json
 docker exec -it dev-consul consul kv put Services/SchedulerServiceConfig @/consul/kv/SchedulerServiceConfig.json
+
+docker exec -it dev-consul consul kv put Services/OperationServiceConfigDev @/consul/kv/OperationServiceConfig.dev.json
+docker exec -it dev-consul consul kv put Services/OperationServiceConfig @/consul/kv/OperationServiceConfig.json
 
 // 2.调试或直接启动
 // 可以通过vs调试启动

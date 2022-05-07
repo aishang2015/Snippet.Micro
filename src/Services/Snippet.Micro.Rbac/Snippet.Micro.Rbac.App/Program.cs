@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddConsulConfiguraion()     // 配置中心
     .AddConsulRegisterService()     // 服务注册
-    .AddFileLog();                   // 日志  
+    .AddFileLog();                  // 日志
 
 builder.Services.AddCustomSwaggerGen()                  // swagger
     .AddHttpContextAccessor()                           // httpcontext

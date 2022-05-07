@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructures\Snippet.Micro.Common\Snippet.Micro.Common.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructures\Snippet.Micro.Consul\Snippet.Micro.Consul.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructures\Snippet.Micro.Serilog\Snippet.Micro.Serilog.csproj" />
+    <ProjectReference Include="..\..\Snippet.Micro.Rbac\Snippet.Micro.Rbac.Api\Snippet.Micro.Rbac.Api.csproj" />
+    <ProjectReference Include="..\Snippet.Micro.Operation.Api\Snippet.Micro.Operation.Api.csproj" />
+  </ItemGroup>
+
+</Project>

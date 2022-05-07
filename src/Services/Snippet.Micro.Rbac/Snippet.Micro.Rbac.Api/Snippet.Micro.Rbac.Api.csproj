@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructures\Snippet.Micro.Common\Snippet.Micro.Common.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructures\Snippet.Micro.Refit\Snippet.Micro.Refit.csproj" />
+  </ItemGroup>
+
+</Project>

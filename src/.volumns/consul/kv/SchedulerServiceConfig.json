@@ -2,7 +2,7 @@
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:23100"
+        "Url": "http://0.0.0.0:21020"
       }
       //"Https": {
       //  "Url": "https://localhost:6001",
@@ -34,7 +34,7 @@
   "AllowedHosts": "*",
   "Consul": {
     "ServiceName": "Snippet.Micro.SchedulerService",
-    "ServicePort": "23100",
+    "ServicePort": "21020",
     "ConsulIp": "host.docker.internal",
     "ConsulPort": "8500"
   },

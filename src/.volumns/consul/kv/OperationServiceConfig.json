@@ -2,7 +2,7 @@
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:21010"
+        "Url": "http://0.0.0.0:21030"
       }
       //"Https": {
       //  "Url": "https://localhost:6001",
@@ -33,23 +33,23 @@
   },
   "AllowedHosts": "*",
   "Consul": {
-    "ServiceName": "Snippet.Micro.RBACService",
-    "ServicePort": "21010",
-    "ConsulIp": "127.0.0.1",
+    "ServiceName": "Snippet.Micro.OperationService",
+    "ServicePort": "21030",
+    "ConsulIp": "host.docker.internal",
     "ConsulPort": "8500"
   },
   "Rabbit": {
-    "Host": "127.0.0.1",
+    "Host": "host.docker.internal",
     "UserName": "admin",
     "Password": "admin"
   },
   "Redis":{
-    "ConnectionString": "127.0.0.1"
+    "ConnectionString": "host.docker.internal"
   },
   "DatabaseOption": {
     "Type": "MySQL",
     "Version": "8.0.21", 
-    "Connection": "Server=127.0.0.1;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;" 
+    "Connection": "Server=host.docker.internal;Port=3306;Database=RBACStore;Uid=root;Pwd=123456;" 
   },
-  "Authority":"http://127.0.0.1:10000/identity"
+  "Authority":"http://host.docker.internal:10000/identity"
 }

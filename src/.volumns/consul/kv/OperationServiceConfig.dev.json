@@ -2,7 +2,7 @@
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://0.0.0.0:21010"
+        "Url": "http://0.0.0.0:21030"
       }
       //"Https": {
       //  "Url": "https://localhost:6001",
@@ -33,8 +33,8 @@
   },
   "AllowedHosts": "*",
   "Consul": {
-    "ServiceName": "Snippet.Micro.RBACService",
-    "ServicePort": "21010",
+    "ServiceName": "Snippet.Micro.OperationService",
+    "ServicePort": "21030",
     "ConsulIp": "127.0.0.1",
     "ConsulPort": "8500"
   },
